@@ -1,8 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "9IArN+65D5LbLzaAojZrM61AKnFJ1NR0z5eN0RxYvkZ2j99NmEfQNC1HHpAQQNwlU1qd4l04ZlGAISEFrtvuNQ==",
+  "dgSpecHash": "uYSBR2NDSuvxqHnQ2pteie3+D48zwwRs09AH4ypjqvfcYWnhajMyeyPLB4WbOGz69nq1CCCgZz6N5FyCDK1X4A==",
   "success": true,
   "projectFilePath": "D:\\syf\\university\\ierg\\IERG3080\\IERG3080_project\\IERG3080_project.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Christine\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.11\\microsoft.netcore.app.ref.6.0.11.nupkg.sha512",
+    "C:\\Users\\Christine\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.11\\microsoft.windowsdesktop.app.ref.6.0.11.nupkg.sha512",
+    "C:\\Users\\Christine\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.11\\microsoft.aspnetcore.app.ref.6.0.11.nupkg.sha512",
+    "C:\\Users\\Christine\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.11\\microsoft.netcore.app.host.win-x64.6.0.11.nupkg.sha512"
+  ],
   "logs": []
 }

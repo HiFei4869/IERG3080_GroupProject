@@ -24,5 +24,7 @@ namespace IERG3080_project
         {
             InitializeComponent();
         }
+
+        private void InitializeComponent() => throw new NotImplementedException();
     }
 }
