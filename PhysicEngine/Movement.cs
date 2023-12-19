@@ -44,6 +44,7 @@ namespace PhysicEngine.Movement
             public double radius; // radius ^3 ~ mass
             public double v_x;
             public double v_y;
+            public int color;     // 0: purple, 1: red
         }
         public static double v_e = 4; // velocity of ejected mass
         public static double m_e = 1; // mass ejected in unit time
