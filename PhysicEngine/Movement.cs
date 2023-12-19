@@ -1,6 +1,7 @@
 ﻿using System;
 
 /// <summary>
+/// Ejection code
 /// </summary>
 namespace PhysicEngine.Movement
 {
@@ -23,7 +24,7 @@ namespace PhysicEngine.Movement
             Radius = NthRoot(3 * mass / (4 * Math.PI), 3); // assume rho = 1
             return Radius;
         }
-		public static void SplitEject(Planet planet, double x_c, double y_c, double clickTime)
+		public static void SplitEject(ref Planet planet, double x_c, double y_c, double clickTime)
         {
             double direction = EjectDirection(planet, x_c, y_c);
             double v_e_x = v_e * Math.Cos(direction);  // x_axis velocity of the ejected mass

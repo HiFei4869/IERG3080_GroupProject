@@ -5,7 +5,17 @@
       "ProjectGuid": "c7d3fb59-3829-4264-a327-c4d09e56c2e1",
       "DisplayName": "IERG3080_project",
       "ColorIndex": 0
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
+    },
+    "f53bbec1-933a-43c6-b2c8-65273d180f75": {
+      "ProjectGuid": "f53bbec1-933a-43c6-b2c8-65273d180f75",
+      "DisplayName": "EjectionTest",
+      "ColorIndex": 1
     }
   },
-  "NextColorIndex": 1
+  "NextColorIndex": 2
 }

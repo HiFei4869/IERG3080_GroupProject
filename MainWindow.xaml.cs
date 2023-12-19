@@ -22,9 +22,9 @@ namespace IERG3080_project
     {
         public MainWindow()
         {
-            InitializeComponent();
+            //InitializeComponent();
         }
 
-        private void InitializeComponent() => throw new NotImplementedException();
+        //private void InitializeComponent() => throw new NotImplementedException();
     }
 }
