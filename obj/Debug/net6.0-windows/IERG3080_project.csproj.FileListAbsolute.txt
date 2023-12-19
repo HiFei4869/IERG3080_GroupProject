@@ -1,0 +1,5 @@
+D:\syf\university\ierg\IERG3080\IERG3080_project\obj\Debug\net6.0-windows\IERG3080_project.csproj.AssemblyReference.cache
+D:\syf\university\ierg\IERG3080\IERG3080_project\obj\Debug\net6.0-windows\MainWindow.g.cs
+D:\syf\university\ierg\IERG3080\IERG3080_project\obj\Debug\net6.0-windows\App.g.cs
+D:\syf\university\ierg\IERG3080\IERG3080_project\obj\Debug\net6.0-windows\IERG3080_project_MarkupCompile.cache
+D:\syf\university\ierg\IERG3080\IERG3080_project\obj\Debug\net6.0-windows\IERG3080_project_MarkupCompile.lref
