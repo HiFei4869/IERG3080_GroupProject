@@ -36,19 +36,45 @@ namespace PhysicEngine.Movement
             planet.v_x = v_x_1;
             planet.v_y = v_y_1;
         }
-        // For reference only.
-        public struct Planet
-        {
-            public double x;
-            public double y;
-            public double mass;
-            public double radius; // radius ^3 ~ mass
-            public double v_x;
-            public double v_y;
-            public int color;     // 0: purple, 1: red
-        }
+
         public static double v_e = 4; // velocity of ejected mass
         public static double m_e = 1; // mass ejected in unit time
+    }
+    public class Orbit
+    {
+        public static double G = 10;         // gravitational constant
+        public static double mass_sun = 100; // mass of sun; can be modified
+        // Assume the stable orbit is a circle.
+        public static double FindCircleOrbit(Planet planet)
+        {
+            double radius_orbit_new = 0.0;
+            double velocitySquare = Math.Pow(planet.v_x, 2) + Math.Pow(planet.v_y, 2);
+            radius_orbit_new = G * mass_sun / velocitySquare;
+            return radius_orbit_new;
+        }
+        // Assume the stable orbit is an oval.
+        // The orbit: v^2 = G*M*(2/d-1/a); assume mass_sun >> mass_planet.
+        // Assume the sun is at the origin.
+        public static double FindEllipticOrbit(Planet planet)
+        {
+            double distance_from_sun_new = 0.0;
+            double velocitySquare = Math.Pow(planet.v_x,2)+Math.Pow(planet.v_y,2);
+            double distance_from_sun_old = Math.Sqrt(planet.x * planet.x + planet.y * planet.y);
+            double semi_major_axis = G * mass_sun * distance_from_sun_old / (2 * G * mass_sun - distance_from_sun_old * velocitySquare);
+            distance_from_sun_new = 2/(velocitySquare/(G*mass_sun)+1/ semi_major_axis);
+            return distance_from_sun_new;
+        }
+    }
+    // For reference only.
+    public struct Planet
+    {
+        public double x;
+        public double y;
+        public double mass;
+        public double radius; // radius ^3 ~ mass
+        public double v_x;
+        public double v_y;
+        public int color;     // 0: purple, 1: red
     }
 }
 
