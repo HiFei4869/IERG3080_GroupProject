@@ -2,7 +2,7 @@
 
 
 
-For reference:
+**For reference:**
 
 
     public struct Planet
@@ -17,5 +17,42 @@ For reference:
 	}
 
 
+**Movement.cs (SYF)**
 
-最终ddl 12.29
+
+**Assumption in Movement.cs:**
+
+
+The sun is at (0.0, 0.0).
+
+
+mass_sun >> mass_planet
+
+
+**Functions of Movement.cs:**
+
+
+SplitEject:
+
+
+    input: planet (struct), position of mouse click (double), time of clicking (double)
+    output: void (update the two velocity, planet radius and mass in the Planet struct)
+
+
+
+FindEllipticOrbit (oval orbit):
+
+
+    input: planet (struct)
+    output: the new distance from the sun (stable orbit)
+
+
+FindCircleOrbit (oval orbit):
+
+
+    input: planet (struct)
+    output: the new radius of the orbit (stable orbit)
+
+
+
+**最终ddl 12.29**
