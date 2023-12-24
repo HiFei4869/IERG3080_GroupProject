@@ -159,10 +159,15 @@ public class Program
         Planet.Collision(planet1,planet3);
         PrintPlanet(planet2);
         
-        if(Planet.CheckCircumferenceTouchingBoundary(planet1, line1) || Planet.CheckCircumferenceTouchingBoundary(planet1, line2) || Planet.CheckCircumferenceTouchingBoundary(planet1, line3) || Planet.CheckCircumferenceTouchingBoundary(planet1, line4))
+        if(Planet.CheckCircumferenceTouchingBoundary(planet2, line1) || Planet.CheckCircumferenceTouchingBoundary(planet2, line2) || Planet.CheckCircumferenceTouchingBoundary(planet2, line3) || Planet.CheckCircumferenceTouchingBoundary(planet2, line4))
         {
             Console.WriteLine("Gameover!");
             Environment.Exit(0);
+        }
+
+         if(Planet.CheckCircumferenceTouchingBoundary(planet3, line1) || Planet.CheckCircumferenceTouchingBoundary(planet3, line2) || Planet.CheckCircumferenceTouchingBoundary(planet3, line3) || Planet.CheckCircumferenceTouchingBoundary(planet3, line4))
+        {
+            Console.WriteLine("Enemy dead!"); //This should be changed to discard the enemy planet in linked list
         }
 
         
