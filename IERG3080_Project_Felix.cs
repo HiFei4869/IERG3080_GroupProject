@@ -1,3 +1,8 @@
+// In this document, the function you will use: CheckCircumferenceTouchingBoundary (line 26), CheckWinCondition (line 44), Collision (line 52).
+// In the main, I have written down some code for starting, including creating player, sun and 100 enemies. Also, there are 2 if-statement to check the orb is touching boundary or not.
+// One remaining problem is I have not set the color of player and sun.
+
+
 using System;
 public struct Line
 {
@@ -20,7 +25,7 @@ public class Planet
     {
         return Math.Sqrt(Math.Pow(x2 - x1, 2) + Math.Pow(y2 - y1, 2));
     }
-    public static bool CheckCircumferenceTouchingBoundary(Planet planet, Line line)
+    public static bool CheckCircumferenceTouchingBoundary(Planet planet, Line line) // return true if the orb touching the boundary
     {
         double distance = Math.Abs(
             (line.endY - line.startY) * planet.x -
@@ -38,16 +43,15 @@ public class Planet
 
         return distance <= sumOfRadii;
     }
-    public static void CheckWinCondition(Planet planet)
+    public static bool CheckWinCondition(Planet planet) // return true if the player wins
     {
-        if (planet.mass > 100.0)
+        if (planet.mass > 512.0)
         {
-            Console.WriteLine("You win!");
-            Environment.Exit(0);
+            return true;
         }
    
     }
-    public static void Collision(Planet planet1, Planet planet2)
+    public static int Collision(Planet planet1, Planet planet2) // return 1 if gameover, return 2 if the enemy is dead
     {
         double totalarea= Math.PI * Math.Pow(planet1.radius, 2)+Math.PI * Math.Pow(planet2.radius, 2);
         double newradius= Math.Sqrt(totalarea/Math.PI);
@@ -60,12 +64,11 @@ public class Planet
             {
                 if(planet1 is Player || planet2 is Player)
                 {
-                    Console.WriteLine("Gameover!");
-                    Environment.Exit(0);
+                    return 1;
                 }
                 else if(planet1 is Enemy || planet2 is Enemy)
                 {
-                    Console.WriteLine("Enemy dead!"); //This should be changed to discard the enemy planet in linked list
+                    return 2; 
                 }
             }
             else if (planet1 is Enemy && planet2 is Enemy)
@@ -76,7 +79,7 @@ public class Planet
                     planet1.mass = newmass;
                     planet1.v_x = newv_x;
                     planet1.v_y = newv_y;
-                    Console.WriteLine("Enemy dead!"); //This should be changed to discard the enemy planet2 in linked list
+                    return 2; 
                 }
                 else
                 {
@@ -84,7 +87,7 @@ public class Planet
                     planet2.mass = newmass;
                     planet2.v_x = newv_x;
                     planet2.v_y = newv_y;
-                    Console.WriteLine("Enemy dead!"); //This should be changed to discard the enemy planet1 in linked list
+                    return 2;
                 }
 
                 
@@ -97,12 +100,11 @@ public class Planet
                     planet1.mass = newmass;
                     planet1.v_x = newv_x;
                     planet1.v_y = newv_y;
-                    Console.WriteLine("Enemy dead!"); //This should be changed to discard the enemy planet in linked list
+                    return 2;
                 }
                 else
                 {
-                    Console.WriteLine("Gameover!");
-                    Environment.Exit(0);
+                    return 1;
                 }
                 
             }
@@ -114,12 +116,11 @@ public class Planet
                     planet2.mass = newmass;
                     planet2.v_x = newv_x;
                     planet2.v_y = newv_y;
-                    Console.WriteLine("Enemy dead!"); //This should be changed to discard the enemy planet in linked list
+                    return 2;
                 }
                 else
                 {
-                    Console.WriteLine("Gameover!");
-                    Environment.Exit(0);
+                    return 1;
                 }
             }
         }
@@ -132,17 +133,58 @@ public class Sun : Planet
 {
     public Sun()
     {
-        x = 0;
-        y = 0;
+        x = 270.0;
+        y = 480.0;
+        mass = Double.MaxValue;
+        radius = 50;
+        v_x = 0;
+        v_y = 0;
     }
 }
 
 public class Enemy : Planet { }
 
-public class Player : Planet { }
+public class Player : Planet 
+{ 
+    public Player()
+    {
+        x = 100;
+        y = 600;
+        mass = 15.625;
+        radius = 2.5;
+        v_x = Math.Cos(Math.Atan(y/x))*10;
+        v_y = Math.Sin(Math.Atan(y/x))*10;
+        
+    }
+
+
+}
 
 public class Program
 {
+    public static double GetRandomX(Random random)
+    {
+        double x = random.NextDouble() * 330; // Generate a random double between 0 and 330
+
+        if (x > 210)
+        {
+            x += 330; // Shift the range to 330 to 540
+        }
+
+        return x;
+    }
+
+    public static double GetRandomY(Random random)
+    {
+        double y = random.NextDouble() * 420; // Generate a random double between 0 and 420
+
+        if (y > 280)
+        {
+            y += 260; // Shift the range to 540 to 700
+        }
+
+        return y;
+    }
     
     public static void Main(string[] args)
     {
@@ -150,38 +192,78 @@ public class Program
         Line line2 = new Line { startX = 0, startY = 960, endX = 540, endY = 960 };
         Line line3 = new Line { startX = 0, startY = 0, endX = 0, endY = 960 };
         Line line4 = new Line { startX = 540, startY = 0, endX = 540, endY = 960 };
-        Planet planet1 = new Sun { radius = 5};
-        Planet planet2 = new Player { x = 6.0, y = 6.0, mass = 1728.0, radius = 12, v_x = -2.0, v_y = 3.0, color = 1 };
-        Planet planet3 = new Enemy { x = 10.0, y = 10.0, mass = 125.0, radius = 5, v_x = 2.0, v_y = -3.0, color = 1 };
+        Planet planet1 = new Sun();
+        Planet planet2 = new Player();
+        Random random = new Random();
+        Planet[] planets = new Planet[100];
+
+        for (int i = 0; i < 50; i++)
+        {
+            double radius = random.NextDouble() * 1.5 + 1; 
+            double mass = Math.Pow(radius, 3); 
+
+            double x = GetRandomX(random);
+            double y = GetRandomY(random);
+
+            double v_x = Math.Cos(Math.Atan(y/x))*10;
+            double v_y = Math.Sin(Math.Atan(y/x))*10;
+
+            planets[i] = new Planet
+            {
+                x = x,
+                y = y,
+                mass = mass,
+                radius = radius,
+                v_x = v_x,
+                v_y = v_y,
+                color = 0
+            };
+        }
+
+        for (;i < planets.Length; i++)
+        {
+            double radius = random.NextDouble() * 2.5 + 2.5; 
+            double mass = Math.Pow(radius, 3); 
+
+            double x = GetRandomX(random);
+            double y = GetRandomY(random);
+
+            double v_x = Math.Cos(Math.Atan(y/x))*10;
+            double v_y = Math.Sin(Math.Atan(y/x))*10;
+
+            planets[i] = new Planet
+            {
+                x = x,
+                y = y,
+                mass = mass,
+                radius = radius,
+                v_x = v_x,
+                v_y = v_y,
+                color = 1
+                
+            };
+        }
         
        
-        Planet.Collision(planet1,planet2);
-        Planet.Collision(planet1,planet3);
-        PrintPlanet(planet2);
+       
         
-        if(Planet.CheckCircumferenceTouchingBoundary(planet2, line1) || Planet.CheckCircumferenceTouchingBoundary(planet2, line2) || Planet.CheckCircumferenceTouchingBoundary(planet2, line3) || Planet.CheckCircumferenceTouchingBoundary(planet2, line4))
+        if(Planet.CheckCircumferenceTouchingBoundary(planet2, line1) || Planet.CheckCircumferenceTouchingBoundary(planet2, line2) || Planet.CheckCircumferenceTouchingBoundary(planet2, line3) || Planet.CheckCircumferenceTouchingBoundary(planet2, line4)) // it is a if-statement for checking the player orb touching the boundary or not, return 1 if it touchs.
         {
-            Console.WriteLine("Gameover!");
-            Environment.Exit(0);
+            return 1;
+        }
+        else{
+            return 2;
         }
 
-         if(Planet.CheckCircumferenceTouchingBoundary(planet3, line1) || Planet.CheckCircumferenceTouchingBoundary(planet3, line2) || Planet.CheckCircumferenceTouchingBoundary(planet3, line3) || Planet.CheckCircumferenceTouchingBoundary(planet3, line4))
+         if(Planet.CheckCircumferenceTouchingBoundary(planet3, line1) || Planet.CheckCircumferenceTouchingBoundary(planet3, line2) || Planet.CheckCircumferenceTouchingBoundary(planet3, line3) || Planet.CheckCircumferenceTouchingBoundary(planet3, line4)) // it is a if-statement for checking the enemy orb touching the boundary or not, return 1 if it touchs.
         {
-            Console.WriteLine("Enemy dead!"); //This should be changed to discard the enemy planet in linked list
+            return 1;
+        }
+        else{
+            return 2;
         }
 
         
     }
-    public static void PrintPlanet(Planet planet)
-    {
-        Console.WriteLine("Planet Properties:");
-        Console.WriteLine("x: " + planet.x);
-        Console.WriteLine("y: " + planet.y);
-        Console.WriteLine("mass: " + planet.mass);
-        Console.WriteLine("radius: " + planet.radius);
-        Console.WriteLine("v_x: " + planet.v_x);
-        Console.WriteLine("v_y: " + planet.v_y);
-        Console.WriteLine("color: " + planet.color);
-        Console.WriteLine();
-    }
+    
 }
