@@ -220,7 +220,7 @@ public class Program
             };
         }
 
-        for (;i < planets.Length; i++)
+        for (int i=49;i < planets.Length; i++)
         {
             double radius = random.NextDouble() * 2.5 + 2.5; 
             double mass = Math.Pow(radius, 3); 
