@@ -52,8 +52,8 @@ namespace PhysicEngine.Movement
             global.planet_list.AddLast(ejectedPlanet);
         }
 
-        public static double v_e = 4;              // velocity of ejected mass
-        public static double m_e = 1;              // mass ejected in unit time
+        public static double v_e = 2;              // velocity of ejected mass
+        public static double m_e = 0.1;              // mass ejected in unit time
         public static double birth_distance = 0.1; // distance from the planet and the new ejected planet;
     }
     public class Orbit
